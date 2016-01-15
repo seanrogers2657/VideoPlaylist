@@ -2,19 +2,22 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
-
 import views.html.*;
 import com.avaje.ebean.Ebean;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import models.Task;
 import java.util.List;
+
+import services.UrlConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Controller
 public class Application extends Controller {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
+    @Autowired
+    private UrlConverter converter;
 
     public static Result index() {
         log.info("Getting Index Page");
@@ -40,5 +43,9 @@ public class Application extends Controller {
         Task task = Ebean.find(Task.class, taskid);
         task.delete();
         return redirect(routes.Application.index());
+    }
+
+    public static String convert(String url) {
+        return UrlConverter.convert(url);
     }
 }

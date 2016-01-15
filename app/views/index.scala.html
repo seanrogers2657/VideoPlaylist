@@ -10,6 +10,16 @@
     </div>
 
     <div class="container">
+        <div id="video">
+            <iframe width="640" height="480"
+                @if(tasks.isEmpty) {
+                    src="">
+                } else {
+                    src="@controllers.Application.convert(tasks.head.contents)">
+                }
+            </iframe>
+        </div>
+
         <div id="tasks">
             @for(task <- tasks) {
                 <div id="task@task.id">

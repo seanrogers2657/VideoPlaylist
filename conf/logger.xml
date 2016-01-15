@@ -13,6 +13,7 @@
   <!--Loggers-->
   <logger name="play" level="INFO" />
   <logger name="controllers" level="TRACE" />
+  <logger name="services" level="TRACE" />
   <!--Root logger-->
   <root level="ERROR">
     <appender-ref ref="STDOUT" />
