@@ -4,23 +4,19 @@
 # --- !Ups
 
 create table task (
-  id                        varchar(255) not null,
+  id                        integer auto_increment not null,
   contents                  varchar(255),
   constraint pk_task primary key (id))
 ;
-
-create sequence task_seq;
 
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists task;
+drop table task;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists task_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

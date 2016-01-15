@@ -1,25 +1,30 @@
-@(message: String, taskForm: Form[Task])
-@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+@(message: String, tasks: List[Task], form: Form[Task])
 
-@main("Welcome to Play 2.0") {
-
+@main("Tasks") {
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+                <a id="titleLink" class="brand" href="/">@message</a>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <ul id="tasks"></ul>
+        <div id="tasks">
+            @for(task <- tasks) {
+                <div id="task@task.id">
+                    <span>@task.contents</span>
+                    <a href="http://localhost:9000@routes.Application.deleteTask(task.id)">delete</a>
+                </div>
+            }
+        </div>
 
-        @helper.form(action = routes.Application.addTask(), 'class -> "well form-horizontal") {
-            @helper.inputText(taskForm("contents"), '_label -> "Contents")
-            <div class="controls">
-                <input type="submit" class="btn btn-primary"/>
-            </div>
-        }
+        <div id="addTasks">
+            @helper.form(action=routes.Application.addTask()) {
+                @helper.inputText(form("Contents"))
+                <input type="submit" value="Submit">
+            }
+        </div>
     </div>
 
 }

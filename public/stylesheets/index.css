@@ -1,0 +1,8 @@
+#tasks {
+    width: 100%;
+}
+
+#tasks span {
+    float: left;
+    width: 80%;
+}

@@ -10,9 +10,10 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  javaWs
+  javaWs,
+  "org.webjars" % "jquery" % "1.11.2",
+  "org.webjars" % "bootstrap" % "2.1.1",
+  "mysql" % "mysql-connector-java" % "5.1.18",
+  javaJpa,
+  "org.hibernate" % "hibernate-entitymanager" % "4.3.9.Final"
 )
-
-libraryDependencies += "org.webjars" % "jquery" % "1.11.2"
-
-libraryDependencies += "org.webjars" % "bootstrap" % "2.1.1"
