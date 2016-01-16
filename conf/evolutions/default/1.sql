@@ -5,7 +5,7 @@
 
 create table task (
   id                        integer auto_increment not null,
-  contents                  varchar(255),
+  contents                  text,
   constraint pk_task primary key (id))
 ;
 

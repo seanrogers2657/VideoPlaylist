@@ -11,21 +11,24 @@
 
     <div class="container">
         <div id="video">
-            <iframe width="640" height="480"
+            <iframe id="player" type="text/html" width="940" height="480"
                 @if(tasks.isEmpty) {
                     src="">
                 } else {
-                    src="@controllers.Application.convert(tasks.head.contents)">
+                    @*src="@services.UrlConverter.convert(tasks.head.contents)">*@
+                    src="">
                 }
             </iframe>
         </div>
 
         <div id="tasks">
-            @for(task <- tasks) {
-                <div id="task@task.id">
-                    <span>@task.contents</span>
-                    <a href="http://localhost:9000@routes.Application.deleteTask(task.id)">delete</a>
-                </div>
+            @if(!tasks.isEmpty) {
+                @for(task <- tasks) {
+                    <div id="task@task.id">
+                        <span>@task.contents</span>
+                        <a href="">delete</a>
+                    </div>
+                }
             }
         </div>
 

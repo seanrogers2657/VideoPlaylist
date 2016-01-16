@@ -1,32 +1,24 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import play.db.ebean.Model;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.GeneratedValue;
 import play.data.validation.Constraints.Required;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-public class Task extends Model {
+public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     public int id;
 
     @Required
+    @Column(columnDefinition="text")
     public String contents;
 
-    public static List<Task> getAllTasks() {
-        List<Task> tasks = new ArrayList<Task>();
-        tasks = Ebean.find(Task.class).findList();
-        return tasks;
+    @Override
+    public String toString() {
+        return "(Task: " + id + ", " + contents + ")";
     }
-
 }
