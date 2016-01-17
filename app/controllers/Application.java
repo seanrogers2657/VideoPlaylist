@@ -1,6 +1,5 @@
 package controllers;
 
-import org.springframework.transaction.annotation.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -10,7 +9,6 @@ import models.Task;
 import java.util.List;
 
 import services.PlaylistManager;
-import services.UrlConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Controller
@@ -20,7 +18,6 @@ public class Application extends play.mvc.Controller {
 
     @Autowired
     private PlaylistManager manager;
-    private UrlConverter converter;
 
     public Result index() {
         log.info("Getting Index Page");
@@ -32,7 +29,6 @@ public class Application extends play.mvc.Controller {
         return ok(index.render(titleName, taskList, play.data.Form.form(models.Task.class)));
     }
 
-    @Transactional
     public Result addTask() {
         log.info("Adding Task");
         play.data.Form<models.Task> form = play.data.Form.form(models.Task.class).bindFromRequest();
@@ -51,14 +47,13 @@ public class Application extends play.mvc.Controller {
         return ok(Json.toJson(manager.getAllTasks()));
     }
 
-    public Result deleteTask(int taskid) {
-        log.info(String.format("Deleting Task: %s", taskid));
-        manager.removeTask(taskid);
+    public Result deleteTask(int taskId) {
+        log.info(String.format("Deleting Task: %s", taskId));
+        manager.removeTask(taskId);
         return redirect(routes.Application.index());
     }
 
-    public Result convert(String url) {
-        String converted = converter.convert(url);
-        return ok();
+    public static play.api.mvc.Call routesDelete(int taskId) {
+        return routes.Application.deleteTask(taskId);
     }
 }

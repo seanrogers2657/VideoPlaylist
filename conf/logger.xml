@@ -14,7 +14,6 @@
   <logger name="play" level="INFO" />
   <logger name="controllers" level="TRACE" />
   <logger name="services" level="TRACE" />
-  <logger name="logger.org.hibernate" level="INFO" />
   <logger name="playlistmanager" level="INFO" />
   <!--Root logger-->
   <root level="ERROR">

@@ -15,8 +15,7 @@
                 @if(tasks.isEmpty) {
                     src="">
                 } else {
-                    @*src="@services.UrlConverter.convert(tasks.head.contents)">*@
-                    src="">
+                    src="@services.UrlConverter.convert(tasks.head.contents)">
                 }
             </iframe>
         </div>
@@ -24,9 +23,13 @@
         <div id="tasks">
             @if(!tasks.isEmpty) {
                 @for(task <- tasks) {
-                    <div id="task@task.id">
-                        <span>@task.contents</span>
-                        <a href="">delete</a>
+                    @if(task.equals(tasks.last)) {
+                        <div id="task@task.id" class="task-last">
+                    } else {
+                        <div id="task@task.id" class="task">
+                    }
+                        <span>@task.id: @task.contents</span>
+                        <a href="@controllers.Application.routesDelete(task.id)">delete</a>
                     </div>
                 }
             }

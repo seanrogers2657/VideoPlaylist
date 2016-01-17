@@ -9,8 +9,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
-  javaJdbc,
-  cache,
   javaWs,
   "com.h2database" % "h2" % "1.4.181",
   "org.springframework" % "spring-context" % "4.1.1.RELEASE",
@@ -23,6 +21,5 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "1.11.2",
   "org.webjars" % "bootstrap" % "2.1.1",
   "mysql" % "mysql-connector-java" % "5.1.18",
-  javaJpa,
   "org.hibernate" % "hibernate-entitymanager" % "4.3.9.Final"
 )
