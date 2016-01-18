@@ -25,6 +25,7 @@ public class UrlConverter {
         if (videoId.isEmpty()) {
             log.error("Video url convert failed");
         }
-        return "http://youtube.com/embed/" + videoId + "?autoplay=1";
+        return videoId;
+//        return "http://youtube.com/embed/" + videoId + "?autoplay=1";
     }
 }

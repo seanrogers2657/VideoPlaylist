@@ -11,13 +11,7 @@
 
     <div class="container">
         <div id="video">
-            <iframe id="player" type="text/html" width="940" height="480"
-                @if(tasks.isEmpty) {
-                    src="">
-                } else {
-                    src="@services.UrlConverter.convert(tasks.head.contents)">
-                }
-            </iframe>
+
         </div>
 
         <div id="tasks">
@@ -28,6 +22,41 @@
                     } else {
                         <div id="task@task.id" class="task">
                     }
+
+                    @if(task.equals(tasks.head)) {
+                        <script>
+                            // Load the IFrame Player API code asynchronously.
+                            var tag = document.createElement('script');
+                            tag.src = "https://www.youtube.com/player_api";
+                            var firstScriptTag = document.getElementsByTagName('script')[0];
+                            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                            // Replace the 'video' element with an <iframe> and
+                            // YouTube player after the API code downloads.
+                            var player;
+                            function onYouTubePlayerAPIReady() {
+                                player = new YT.Player('video', {
+                                    height: '480',
+                                    width: '940',
+                                    videoId: '@services.UrlConverter.convert(task.contents)',
+                                    events: {
+                                        'onReady' : onPlayerReady,
+                                        'onStateChange' : onPlayerStateChange
+                                    }
+                                });
+                            }
+                            function onPlayerReady(event) {
+                                event.target.playVideo();
+                            }
+
+                            function onPlayerStateChange(event) {
+                                if(event.data == 0) {
+                                    console.log("VIDEO IS DONE");
+                                }
+                            }
+                        </script>
+                    }
+
                         <span>@task.id: @task.contents</span>
                         <a href="@controllers.Application.routesDelete(task.id)">delete</a>
                     </div>
