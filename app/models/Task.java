@@ -1,10 +1,8 @@
 package models;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import play.data.validation.Constraints.Required;
 
 @Entity
 public class Task {
@@ -13,9 +11,15 @@ public class Task {
     @GeneratedValue
     public int id;
 
-    @Required
-    @Column(columnDefinition="text")
     public String contents;
+
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
+
+    public String getContents() {
+        return this.contents;
+    }
 
     @Override
     public String toString() {

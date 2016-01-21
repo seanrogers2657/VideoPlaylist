@@ -1,5 +1,6 @@
 package controllers;
 
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -7,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import models.Task;
 import java.util.List;
-
 import services.PlaylistManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import forms.TaskForm;
 
 @org.springframework.stereotype.Controller
 public class Application extends play.mvc.Controller {
@@ -23,20 +24,24 @@ public class Application extends play.mvc.Controller {
         log.info("Getting Index Page");
         if(manager == null) {
             log.error("PlaylistManager injection is null");
+            return ok(error.render("PlaylistManager injection is null"));
+        } else {
+            log.info("Manager Info: " + manager.toString());
+            List<Task> taskList = manager.getAllTasks();
+            return ok(index.render(titleName, taskList, Form.form(TaskForm.class)));
         }
-        log.info("Manager Info: " + manager.toString());
-        List<Task> taskList = manager.getAllTasks();
-        return ok(index.render(titleName, taskList, play.data.Form.form(models.Task.class)));
     }
 
     public Result addTask() {
         log.info("Adding Task");
-        play.data.Form<models.Task> form = play.data.Form.form(models.Task.class).bindFromRequest();
+        Form<TaskForm> form = Form.form(TaskForm.class).bindFromRequest();
         if (form.hasErrors()) {
+            log.info("Form has errors");
             return badRequest(index.render(titleName, manager.getAllTasks(), form));
         }
         else {
-            models.Task task = form.get();
+            Task task = new Task();
+            task.setContents(form.get().getContents());
             log.info("Task: " + task);
             manager.addTask(task);
             return redirect(routes.Application.index());

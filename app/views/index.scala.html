@@ -1,4 +1,5 @@
-@(message: String, tasks: List[Task], form: Form[Task])
+@import forms.TaskForm
+@(message: String, tasks: List[Task], form: Form[TaskForm])
 
 @main("Tasks") {
     <div class="navbar navbar-fixed-top">
@@ -46,19 +47,26 @@
                                 });
                             }
                             function onPlayerReady(event) {
-                                event.target.playVideo();
+//                                event.target.playVideo();
                             }
 
                             function onPlayerStateChange(event) {
                                 if(event.data == 0) {
-                                    console.log("VIDEO IS DONE");
+                                    window.location.href = '@controllers.Application.routesDelete(task.id)';
                                 }
                             }
                         </script>
+                        <span>Now Playing!</span>
                     }
-
-                        <span>@task.id: @task.contents</span>
+                        <span id="videoTitle@task.id" class="videoTitle"></span>
+                        <span id="videoLink@task.id" class="videoLink">@task.contents</span>
                         <a href="@controllers.Application.routesDelete(task.id)">delete</a>
+                        <script>
+                                $.getJSON('https://noembed.com/embed', {format: 'json', url: '@task.contents'}, function (data) {
+                                    document.getElementById('videoTitle@task.id').textContent = data.title;
+                                    console.log(data.title);
+                                });
+                        </script>
                     </div>
                 }
             }
@@ -66,8 +74,17 @@
 
         <div id="addTasks">
             @helper.form(action=routes.Application.addTask()) {
+                <b>Enter URL</b>
                 @helper.inputText(form("Contents"))
-                <input type="submit" value="Submit">
+                @if(form.hasGlobalErrors) {
+                    <p class="error">
+                    @form.globalError.message
+                    </p>
+                }
+                @for(error <- form("contents").errors) {
+                    <p>@error.message</p>
+                }
+                <input type = "submit" class = "btn btn-default" name = "Verb" value = "Submit"></button>
             }
         </div>
     </div>

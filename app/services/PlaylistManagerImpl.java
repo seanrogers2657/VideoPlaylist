@@ -30,8 +30,11 @@ public class PlaylistManagerImpl implements PlaylistManager {
         List resultList = em.createQuery("SELECT T from Task AS T WHERE T.id = " + theTaskId).getResultList();
         log.info(resultList.toString());
         log.info("To Delete: id: " + theTaskId);
-        log.info("Deleting: " + resultList.get(0));
-        em.remove(resultList.get(0));
+
+        if(!resultList.isEmpty()) {
+            log.info("Deleting: " + resultList.get(0));
+            em.remove(resultList.get(0));
+        }
     }
 
     public List<Task> getAllTasks() {
