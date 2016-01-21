@@ -12,9 +12,9 @@
   -->
   <!--Loggers-->
   <logger name="play" level="INFO" />
-  <logger name="controllers" level="TRACE" />
-  <logger name="services" level="TRACE" />
-  <logger name="playlistmanager" level="INFO" />
+  <logger name="application" level="DEBUG" />
+  <logger name="controllers" level="DEBUG" />
+  <logger name="services" level="DEBUG" />
   <!--Root logger-->
   <root level="ERROR">
     <appender-ref ref="STDOUT" />

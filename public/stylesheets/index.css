@@ -3,18 +3,26 @@
     background-color: #D3D3D3;
 }
 
-#tasks span {
-    float: left;
-    width: 80%;
-}
-
 .task {
-    margin: 1px;
     border-left: 1px #000000 solid;
     border-top: 1px #000000 solid;
     border-right: 1px #000000 solid;
+    overflow: auto;
 }
 
 .task-last {
     border: 1px #000000 solid;
+    overflow: auto;
+}
+
+.videoTitle {
+    width: 40%;
+    float: left;
+    height: inherit;
+}
+
+.videoLink {
+    width: 40%;
+    float: left;
+    height: inherit;
 }

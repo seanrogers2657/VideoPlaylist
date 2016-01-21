@@ -4,7 +4,7 @@
 
 # Home page
 GET         /                           @controllers.Application.index
-POST        /task                       @controllers.Application.addTask
+POST        /                           @controllers.Application.addTask
 GET         /tasks                      @controllers.Application.getAllTasks
 GET         /delete/:id                 @controllers.Application.deleteTask(id: Int)
 

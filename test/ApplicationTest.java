@@ -1,53 +1,53 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import configs.AppConfig;
+import controllers.routes;
+import models.Task;
+import forms.TaskForm;
 import org.junit.*;
-
+import org.springframework.test.context.ContextConfiguration;
+import play.data.Form;
 import play.mvc.*;
 import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
 import play.libs.F.*;
-import play.twirl.api.Content;
-
+import play.twirl.api.Html;
+import java.util.ArrayList;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
-
-/**
-*
-* Simple (JUnit) tests that can call all parts of a play app.
-* If you are interested in mocking a whole application, see the wiki for more details.
-*
-*/
+@ContextConfiguration(classes={AppConfig.class, TestDataConfig.class})
 public class ApplicationTest {
 
     @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
+    public void renderIndexTest() {
+        System.out.println("\nRENDER INDEX TEST:");
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                Form<TaskForm> form = Form.form(TaskForm.class);
+                Html html = views.html.index.render("Test", new ArrayList<Task>(), form);
+                assertThat(contentType(html)).isEqualTo("text/html");
+                assertThat(contentAsString(html)).contains("Test");
+            }
+        });
     }
 
     @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("HELLO, WORLD", play.data.Form.form(models.Task.class));
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("HELLO, WORLD");
+    public void addTaskPathTest() {
+        System.out.println("\nADD TASK PATH TEST:");
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                Result result = route(fakeRequest(POST, routes.Application.addTask().toString()));
+                assertThat(result).isNotNull();
+            }
+        });
     }
 
     @Test
-    public void testIndex() {
-        Result result = controllers.Application.index();
-        assertThat(status(result)).isEqualTo(OK);
-        assertThat(contentType(result)).isEqualTo("text/html");
-        assertThat(charset(result)).isEqualTo("utf-8");
-        assertThat(contentAsString(result)).contains("HELLO, WORLD");
+    public void getTasksPathTest() {
+        System.out.println("\nGET TASK PATH TEST:");
+        running(fakeApplication(), new Runnable() {
+           public void run() {
+               Result result = route(fakeRequest(GET, routes.Application.getAllTasks().toString()));
+               assertThat(result).isNotNull();
+           }
+        });
     }
-
 }

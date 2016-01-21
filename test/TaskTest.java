@@ -1,24 +1,15 @@
 import org.junit.Test;
-
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.running;
-
-import static org.fest.assertions.Assertions.assertThat;
-
+import org.junit.Assert;
 import models.Task;
 
 public class TaskTest {
 
     @Test
-    public void create() {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Task task = new Task();
-                task.contents = "Write a test";
-                task.save();
-                assertThat(task.id).isNotNull();
-            }
-        });
+    public void setContents() {
+        System.out.println("\nSET TASK CONTENTS TEST:");
+        String url = "https://www.youtube.com/watch?v=8z3h4Uv9YbE";
+        Task task = new Task();
+        task.setContents(url);
+        Assert.assertEquals(url, task.getContents());
     }
-
 }
