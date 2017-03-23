@@ -1,4 +1,5 @@
-import configs.DataConfig;
+package configs;
+
 import java.util.HashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
