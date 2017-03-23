@@ -1,12 +1,18 @@
+package services;
+
 import configs.AppConfig;
+import configs.TestDataConfig;
+import models.Task;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import services.PlaylistManager;
-import models.Task;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
-@ContextConfiguration(classes={AppConfig.class, TestDataConfig.class})
+@ContextConfiguration(classes={
+    AppConfig.class,
+    TestDataConfig.class
+})
 public class PlaylistManagerTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired

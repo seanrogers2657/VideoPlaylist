@@ -1,4 +1,5 @@
 import configs.AppConfig;
+import configs.TestDataConfig;
 import controllers.routes;
 import models.Task;
 import forms.TaskForm;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
-@ContextConfiguration(classes={AppConfig.class, TestDataConfig.class})
+@ContextConfiguration(classes={
+    AppConfig.class,
+    TestDataConfig.class
+})
 public class ApplicationTest {
 
     @Test
